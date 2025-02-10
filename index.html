@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>电子口岸退税流程</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: #fff; /* 修改为白色背景 */
+        }
+
+        .fullscreen-img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            cursor: pointer;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <img src="1.png" class="fullscreen-img" 
+         id="mainImage"
+         alt="第一张图片"
+         title="点击进入下一步">
+
+    <script>
+        const stepSequence = [1, 2, 3]; // 只包含需要切换的图片编号
+        let currentStepIndex = 0;
+        const mainImage = document.getElementById('mainImage');
+
+        function navigateToNext() {
+            currentStepIndex = (currentStepIndex + 1) % stepSequence.length;
+            const nextStep = stepSequence[currentStepIndex];
+            mainImage.style.opacity = 0;
+            setTimeout(() => {
+                mainImage.src = `${nextStep}.png`;
+                mainImage.style.opacity = 1;
+            }, 100);
+        }
+
+        function navigateToPrevious() {
+            currentStepIndex = (currentStepIndex - 1 + stepSequence.length) % stepSequence.length;
+            const nextStep = stepSequence[currentStepIndex];
+            mainImage.style.opacity = 0;
+            setTimeout(() => {
+                mainImage.src = `${nextStep}.png`;
+                mainImage.style.opacity = 1;
+            }, 100);
+        }
+
+        mainImage.addEventListener('click', navigateToNext);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') navigateToNext();
+            if (e.key === 'ArrowLeft') navigateToPrevious();
+        });
+    </script>
+</body>
+</html>
